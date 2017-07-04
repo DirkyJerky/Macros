@@ -1,0 +1,2 @@
+# Set access to input devices for the `input` user group
+SUBSYSTEM=="input", GROUP="input", MODE="660"
