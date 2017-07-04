@@ -1,0 +1,9 @@
+[Unit]
+Description=Actkbd: Daemon for X-independent shortcuts
+After=graphical.target
+
+[Service]
+ExecStart=/usr/local/sbin/actkbd -Dd /dev/input/by-id/usb-Logitech_USB_Keyboard-event-kbd
+RemainAfterExit=yes
+Type=forking
+Restart=always
