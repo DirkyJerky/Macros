@@ -5,3 +5,5 @@ cd controller/
 cargo build --release
 cd ..
 ln ./controller/target/release/controller ./control
+
+echo TODO: Setup actkbd
