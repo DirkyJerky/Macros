@@ -1,0 +1,8 @@
+[package]
+authors = ["Geoff Yoerger <geoffreyiy1@gmail.com>"]
+name = "controller"
+version = "0.1.0"
+
+[dependencies]
+clap = "2.25.0"
+simple-error = "0.1.9"
