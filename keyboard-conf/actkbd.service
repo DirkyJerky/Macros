@@ -1,0 +1,15 @@
+[Unit]
+Description=Actkbd: Daemon for X-independent shortcuts
+
+[Service]
+ExecStart=/usr/local/sbin/actkbd -D -c /home/geoff/git/DirkyJerky/Macros/actkbd.conf -d /dev/input/by-id/usb-Logitech_USB_Keyboard-event-kbd
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -15 $MAINPID
+RemainAfterExit=yes
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=default.target
+
+
