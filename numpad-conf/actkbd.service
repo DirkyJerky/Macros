@@ -1,0 +1,15 @@
+[Unit]
+Description=Actkbd: Daemon for X-independent shortcuts
+
+[Service]
+ExecStart=/usr/local/sbin/actkbd -D -d /dev/input/by-id/usb-04d9_1203-event-kbd -c /home/geoff/etc/macros/actkbd.conf
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -15 $MAINPID
+RemainAfterExit=yes
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=default.target
+
+
