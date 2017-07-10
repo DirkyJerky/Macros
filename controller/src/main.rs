@@ -40,15 +40,18 @@ fn main() {
 
 fn run(args: ArgMatches) ->  Result<(), Box<Error>> {
     // use `xdotool` to get PID of currently active window
-    let Output {status, stdout, .. } = 
+    let Output {status, stdout, stderr, .. } = 
                       Command::new("xdotool")
                               .arg("getactivewindow")
                               .arg("getwindowpid")
+                              .env("DISPLAY", ":0")
                               .output()
                               ?;
     if !status.success() {
+        println!("{}", String::from_utf8(stdout).unwrap());
+        println!("{}", String::from_utf8(stderr).unwrap());
         return Err(Box::new(SimpleError::new(
-                status.code().map(|n| format!("Exited with error code {}", n)).unwrap_or("Unsuccessfully completed without error code".to_string())         
+                status.code().map(|n| format!("xdotool exited with error code {}", n)).unwrap_or("xdotool unsuccessfully completed without error code".to_string())         
             )));
     }
     
@@ -75,12 +78,13 @@ fn run(args: ArgMatches) ->  Result<(), Box<Error>> {
     working_dir.push(format!("{}.sh", args.value_of("id").expect("required arg should exist here")));
 
     if !working_dir.is_file() {
-        return Err(Box::new(SimpleError::new("No script to run")));
+        return Err(Box::new(SimpleError::new(format!("No script: {:?}", working_dir.to_str()))));
     }
 
     return Err(Box::new(
         Command::new("/bin/bash")
                 .arg(working_dir.as_os_str())
+                .env("DISPLAY", ":0")
                 .exec()
         ));
 }
