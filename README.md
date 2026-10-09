@@ -1,13 +1,22 @@
 # Macros
-This reposity will contain the controller, `actkbd` configuration file, and a template for a systemd service file for `actkbd`.
+A macro system that uses an external USB keypad to trigger hot-swappable exectuable tasks.
 
-Suggested use with an external usb keypad.
+This system uses [actkbd](https://github.com/thkala/actkbd) for low level evdev bindings to the device, and a custom built controller (made with Rust) to perform task dispatch.
 
-See: https://github.com/thkala/actkbd
+This system is run as a user-level systemd process, and fully lives in user-space.
+
+> [!NOTE]
+> This repo contains my first piece of published Rust code!
+
+## Setup
+
+These commands are incomplete, and roughly detail the installation process:
+1. Installing the udev rules so the USB device can be controlled from user-space.
+2. Building the high-level controller
+3. Installing the controller, actkbd configuration, and systemd unit file to ~/etc/macros
+4. Starting the system
 
 ```bash
-#Some commands used for setting up; incomplete and in no particular order
-
 set -e
 
 # Input group, reboot for effects
